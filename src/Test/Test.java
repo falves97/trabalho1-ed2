@@ -1,24 +1,23 @@
 package Test;
 
+import Utils.Table;
+
 import java.security.SecureRandom;
 import java.util.*;
 
 public class Test {
     public static void main(String[] args) {
-        /*List<Integer> inteiros = new ArrayList<>();
+        Table<Integer, Integer> dbInt = new Table<>();
         SecureRandom random = new SecureRandom();
 
         for (int i = 0; i < 10; i++) {
-            inteiros.add(random.nextInt(9) + 1);
-            System.out.println((i + 1) + "º valor: " + inteiros.get(i));
+            dbInt.put(random.nextInt(10) + 1, i);
         }
 
-        System.out.println("==================");
-        List<Integer> inteirosOdenados = Utils.Sort.merge(inteiros, null,0, inteiros.size() - 1);
+        System.out.println(dbInt);
 
-        for (int i = 0; i < 10; i++) {
-            System.out.println((i + 1) + "º valor: " + inteirosOdenados.get(i));
-        }*/
-        
+        dbInt.sortByKey();
+
+        System.out.println(dbInt);
     }
 }
