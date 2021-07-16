@@ -10,13 +10,13 @@ public class Test {
         Table<Integer, Integer> dbInt = new Table<>();
         SecureRandom random = new SecureRandom();
 
-        for (int i = 0; i < 10; i++) {
-            dbInt.put(random.nextInt(10) + 1, i);
+        for (int i = 0; i < 100; i++) {
+            dbInt.put(random.nextInt(100) + 1, i);
         }
 
         System.out.println(dbInt);
 
-        dbInt.sortByKey();
+        dbInt.sort();
 
         System.out.println(dbInt);
     }

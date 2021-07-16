@@ -47,7 +47,7 @@ public class Item<K extends Comparable<K>, V extends Comparable<V>> implements C
 
     @Override
     public int compareTo(Item<K, V> item) {
-        return (this.getKey().compareTo(item.getKey()) + this.getValue().compareTo(item.getValue()));
+        return this.getKey().compareTo(item.getKey());
     }
 
     @Override

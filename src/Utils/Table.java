@@ -20,11 +20,11 @@ public class Table<K extends Comparable<K>, V extends Comparable<V>> {
     }
 
     public void sort() {
-        this.items = Sort.merge(getItems(), null, 0, getItems().size() - 1);
+        Sort.mergeWithInsertion(getItems(), null, 0, getItems().size() - 1);
     }
 
     public void sort(Comparator<Item<K, V>> comparator) {
-        this.items = Sort.merge(getItems(), null, 0, getItems().size() - 1, comparator);
+        Sort.merge(getItems(), null, 0, getItems().size() - 1, comparator);
     }
 
     public void sortByKey() {
