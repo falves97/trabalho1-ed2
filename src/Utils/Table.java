@@ -7,7 +7,7 @@ import java.util.List;
 public class Table<K extends Comparable<K>, V extends Comparable<V>> {
     private List<Item<K, V>> items;
 
-    public Table() throws IllegalArgumentException {
+    public Table() {
         items = new ArrayList<>();
     }
 
@@ -15,16 +15,17 @@ public class Table<K extends Comparable<K>, V extends Comparable<V>> {
         return items;
     }
 
-    public void put(K key, V value) throws IndexOutOfBoundsException {
+    public void put(K key, V value) {
         items.add(new Item<>(key, value));
     }
 
     public void sort() {
-        Sort.mergeWithInsertion(getItems(), null, 0, getItems().size() - 1);
+        Sort.mergeWithoutAux(getItems(), null, 0, getItems().size() - 1);
     }
 
     public void sort(Comparator<Item<K, V>> comparator) {
-        Sort.merge(getItems(), null, 0, getItems().size() - 1, comparator);
+        Integer count = 0;
+        Sort.quickSameSubdivision(getItems(), 0, getItems().size() - 1, 15, count);
     }
 
     public void sortByKey() {
