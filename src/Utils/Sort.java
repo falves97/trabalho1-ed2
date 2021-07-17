@@ -132,8 +132,8 @@ public class Sort {
             List<T> subList = arrayA.subList(init, last + 1);
             insertion(subList);
 
-            for (int i = 0; i < numElem; i++, last--) {
-                arrayA.set(last, subList.get(last));
+            for (int i = numElem - 1; i > 0; i--, last--) {
+                arrayA.set(last, subList.get(i));
             }
         }
 
@@ -292,7 +292,7 @@ public class Sort {
 
     public static <T extends Comparable<T>> void quickSameSubdivision(List<T> list, int init, int last, int limit, Integer count) {
         int pivot;
-        int numElem = last - init;
+        int numElem = (last - init) + 1;
         if (numElem > limit){
             count = count + 2;
             pivot = randomPartition(list, init, last);
@@ -303,8 +303,8 @@ public class Sort {
             List<T> subList = list.subList(init, last + 1);
             insertion(subList);
 
-            for (int i = 0; i < numElem; i++, last--) {
-                list.set(last, subList.get(last));
+            for (int i = numElem - 1; i > 0; i--, last--) {
+                list.set(last, subList.get(i));
             }
         }
     }
