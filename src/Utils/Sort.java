@@ -30,28 +30,6 @@ public class Sort {
 
     /**
      *
-     * @param list
-     * @param comparator
-     * @param <T>
-     */
-    public static <T> void insertion(List<T> list, Comparator<T> comparator) {
-        T key;
-
-        for (int i = 1; i < list.size(); i++) {
-            key = list.get(i);
-            int j = i - 1;
-
-            while (j >= 0 && comparator.compare(list.get(j), key) > 0) {
-                list.set(j + 1, list.get(j));
-                j--;
-            }
-
-            list.set(j + 1, key);
-        }
-    }
-
-    /**
-     *
      * @param arrayA
      * @param arrayB
      * @param init
@@ -120,83 +98,6 @@ public class Sort {
             merge(arrayA, arrayB, init, midle);
             merge(arrayA, arrayB, midle + 1, last);
             toMerge(arrayA, arrayB, init, midle, last);
-        }
-
-        return arrayB;
-    }
-
-    /**
-     *
-     * @param arrayA
-     * @param arrayB
-     * @param init
-     * @param middle
-     * @param last
-     * @param comparator
-     * @param <T>
-     */
-    public static <T> void toMerge(List<T> arrayA, List<T> arrayB, int init, int middle, int last, Comparator<T> comparator) {
-        int initA;
-        int initB;
-        int posFree;
-        int numElem;
-
-        initA = init;
-        initB = middle + 1;
-        posFree = init;
-        numElem = last - init + 1;
-
-        while (initA <= middle && initB <= last) {
-            if (comparator.compare(arrayA.get(initA), arrayB.get(initB)) <= 0) {
-                arrayB.set(posFree, arrayA.get(initA));
-                initA++;
-            }
-            else {
-                arrayB.set(posFree, arrayA.get(initB));
-                initB++;
-            }
-            posFree++;
-        }
-
-        while (initA <= middle) {
-            arrayB.set(posFree, arrayA.get(initA));
-            posFree++;
-            initA++;
-        }
-
-        while (initB <= last) {
-            arrayB.set(posFree, arrayA.get(initB));
-            posFree++;
-            initB++;
-        }
-
-        for (int i = 0; i < numElem; i++, last--) {
-            arrayA.set(last, arrayB.get(last));
-        }
-    }
-
-    /**
-     *
-     * @param arrayA
-     * @param arrayB
-     * @param init
-     * @param last
-     * @param comparator
-     * @param <T>
-     * @return
-     */
-    public static <T> List<T> merge(List<T> arrayA, List<T> arrayB, int init, int last, Comparator<T> comparator) {
-        int midle;
-
-        if (arrayB == null) {
-            arrayB = new ArrayList<>(arrayA);
-        }
-
-        if (init < last) {
-            midle = (init + last) / 2;
-            merge(arrayA, arrayB, init, midle, comparator);
-            merge(arrayA, arrayB, midle + 1, last, comparator);
-            toMerge(arrayA, arrayB, init, midle, last, comparator);
         }
 
         return arrayB;
@@ -373,7 +274,7 @@ public class Sort {
      */
     public static <T extends Comparable<T>> void quickWithInsertion(List<T> list, int init, int last, int limit) {
         int pivot;
-        int numElem = last - init;
+        int numElem = (last - init) + 1;
         if (numElem > limit){
             pivot = randomPartition(list, init, last);
             quickWithInsertion(list, init, pivot - 1, limit);
@@ -383,8 +284,8 @@ public class Sort {
             List<T> subList = list.subList(init, last + 1);
             insertion(subList);
 
-            for (int i = 0; i < numElem; i++, last--) {
-                list.set(last, subList.get(last));
+            for (int i = numElem - 1; i > 0; i--, last--) {
+                list.set(last, subList.get(i));
             }
         }
     }
@@ -405,63 +306,6 @@ public class Sort {
             for (int i = 0; i < numElem; i++, last--) {
                 list.set(last, subList.get(last));
             }
-        }
-    }
-
-    /**
-     *
-     * @param list
-     * @param init
-     * @param last
-     * @param <T>
-     * @return
-     */
-    public static <T> int randomPartition(List<T> list, int init, int last, Comparator<T> comparator) {
-        SecureRandom secureRandom;
-        int i;
-        int j;
-        int p;
-        T pivot;
-
-        p = ((last - init) / 2) + init;
-        exchange(list, init, p);
-        pivot = list.get(init);
-        i = init + 1;
-        j = last;
-
-        while (i <= j) {
-            if (comparator.compare(list.get(i), pivot) <= 0) {
-                i++;
-            }
-            else if (comparator.compare(list.get(j), pivot) > 0) {
-                j--;
-            }
-            else {
-                exchange(list, i, j);
-                i++;
-                j--;
-            }
-        }
-        exchange(list, init, j);
-
-        return j;
-    }
-
-    /**
-     *
-     * @param list
-     * @param init
-     * @param last
-     * @param comparator
-     * @param <T>
-     */
-    public static <T> void quick(List<T> list, int init, int last, Comparator<T> comparator) {
-        int pivot;
-
-        if (init < last){
-            pivot = randomPartition(list, init, last, comparator);
-            quick(list, init, pivot - 1, comparator);
-            quick(list, pivot + 1, last, comparator);
         }
     }
 }

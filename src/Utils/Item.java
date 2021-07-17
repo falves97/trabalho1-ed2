@@ -2,7 +2,7 @@ package Utils;
 
 import java.util.Comparator;
 
-public class Item<K extends Comparable<K>, V extends Comparable<V>> implements Comparable<Item<K, V>> {
+public class Item<K extends Comparable<K>, V> implements Comparable<Item<K, V>> {
     private K key;
     private V value;
 
@@ -25,24 +25,6 @@ public class Item<K extends Comparable<K>, V extends Comparable<V>> implements C
 
     public void setValue(V value) {
         this.value = value;
-    }
-
-    public Comparator<Item<K, V>> keyComparator() {
-        return (new Comparator<Item<K, V>>() {
-            @Override
-            public int compare(Item<K, V> itemA, Item<K, V> itemB) {
-                return itemA.getKey().compareTo(itemB.getKey());
-            }
-        });
-    }
-
-    public Comparator<Item<K, V>> valueComparator() {
-        return (new Comparator<Item<K, V>>() {
-            @Override
-            public int compare(Item<K, V> itemA, Item<K, V> itemB) {
-                return itemA.getValue().compareTo(itemB.getValue());
-            }
-        });
     }
 
     @Override
