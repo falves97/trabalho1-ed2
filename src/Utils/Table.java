@@ -20,7 +20,8 @@ public class Table<K extends Comparable<K>, V> {
     }
 
     public void sort() {
-        Sort.mergeWithInsertion(getItems(), null, 0, getItems().size() - 1);
+        Integer count = 0;
+        Sort.quickSameSubdivision(getItems(), 0, getItems().size() - 1, 15, count);
     }
 
     public void sort(Comparator<Item<K, V>> comparator) {
